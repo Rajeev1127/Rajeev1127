@@ -3,12 +3,16 @@ from http.client import HTTPResponse
 from urllib import response
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
+from product.models import accesories
 
 a="php"
 m="testing"
 
 def index(request):
-    return render(request,"index.html")
+    pro=accesories.objects.all()
+    print(pro)
+    return render(request,"index.html",{'pro':pro})
+    
 
 
 def samp(request):

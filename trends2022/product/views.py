@@ -1,6 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import accesories
 
-def sample(request):
-    return render(request,"test.html")
+
+def about(request):
+    id=request.GET['id']
+    pro=accesories.objects.get(id=id)
+    print(pro)
+    return render(request,"about.html",{'key1':pro})

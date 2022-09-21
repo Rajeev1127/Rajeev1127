@@ -225,26 +225,25 @@
             <br><br>
             <h1><b>Comment Box</b></h1>
             <div class="comment-box">
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
-               <p>Rajeev&nbsp <b>Good Product&nbsp </b><small>27/11/2027&nbsp </small></p>
+               {% if key1.comments.all %}
+               {% for cmd in key1.comments.all %}
+               <p>{{ cmd.name }}&nbsp <b>{{ cmd.msg }}&nbsp </b><small>{{ cmd.date }}&nbsp </small></p>
+               {% endfor %}
+               {% else %}
+               <h2>There is no comment here</h2>
+               {% endif %}
             </div>
+            {% if user.is_authenticated %}
             <div class="commenting-box">
-               <textarea placeholder="Enter the comment here....."></textarea>
-               <button>Send</button>
+               <form action="{% url 'comment' %}" method='post'>
+                  {% csrf_token %}
+               <textarea name="msg" placeholder="Enter the comment here....."></textarea>
+               <input type="hidden" name="pro" value="{{key1.id}}">
+               <input type="hidden" name="user" value="{{user.username}}" >
+               <button type="submit">Send</button>
+               </form>
             </div>
+            {% endif %}
          </div>
       </div>
       <!-- end about section -->

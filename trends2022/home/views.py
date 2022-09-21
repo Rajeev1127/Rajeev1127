@@ -19,7 +19,6 @@ def samp(request):
     return render(request,"test.html",{'l':a,'j':m})
 
 
-
 def login1(request):
     if request.method=='POST':
         name=request.POST['uname']

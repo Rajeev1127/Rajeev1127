@@ -12,7 +12,7 @@ class accesories(models.Model):
     date=models.DateTimeField(auto_now_add=True)
 
 class comment_box(models.Model):
-    fkey=models.ForeignKey(accesories,realted_name="comments",on_delete=models.CASCADE)
+    fkey=models.ForeignKey(accesories,related_name="comments",on_delete=models.CASCADE)
     name=models.CharField(max_length=200)
     msg=models.TextField()
     date=models.DateTimeField(auto_now_add=True)

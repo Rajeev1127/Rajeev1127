@@ -10,7 +10,7 @@ m="testing"
 
 def index(request):
     pro=accesories.objects.all()
-    print(pro)
+    #print(pro)
     return render(request,"index.html",{'pro':pro})
     
 

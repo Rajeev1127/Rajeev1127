@@ -11,6 +11,10 @@ class accesories(models.Model):
     desc=models.TextField()
     date=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
+
 class comment_box(models.Model):
     fkey=models.ForeignKey(accesories,related_name="comments",on_delete=models.CASCADE)
     name=models.CharField(max_length=200)

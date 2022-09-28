@@ -132,7 +132,9 @@
                   <div class="row d_flex">
                      <div class="col-md-4">
                         <ul class="conta_icon d_none1">
-                           <li><a href="#"><img src="{% static 'images/email.png' %}" alt="#"/> demo@gmail.com</a> </li>
+                           {% if user.is_authenticated %}
+                           <li><a href="#"><img src="{% static 'images/email.png' %}" alt="#"/>  Hai, {{user.username}} </a> </li>
+                           {% endif %}
                         </ul>
                      </div>
                      <div class="col-md-4">

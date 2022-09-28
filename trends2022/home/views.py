@@ -9,11 +9,17 @@ a="php"
 m="testing"
 
 def index(request):
-    pro=accesories.objects.all()
-    #print(pro)
-    return render(request,"index.html",{'pro':pro})
-    
-
+    if request.method=='POST':
+        pname=request.POST['search']
+        pro=accesories.objects.filter(name__istartswith=pname)
+    else:
+        pro=accesories.objects.all()
+        if 'username' in request.COOKIES:
+            ukey=request.COOKIES['username']
+            return render(request,"index.html",{'pro':pro,'ukey':ukey})
+        else:
+            return render(request,"index.html",{'pro':pro})
+        
 
 def samp(request):
     return render(request,"test.html",{'l':a,'j':m})
@@ -26,7 +32,9 @@ def login1(request):
         user=auth.authenticate(username=name,password=password)
         if user is not None:
             auth.login(request,user)
-            return redirect('/')
+            response=redirect('/')
+            response.set_cookie('username',name)
+            return response            
         else:
             msg="Invalid username or Password"
             return render(request,"login.html",{'msg':msg})
@@ -68,4 +76,6 @@ def register(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect("/")
+    resp=redirect("/")
+    resp.delete_cookie('username')
+    return (resp)

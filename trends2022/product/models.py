@@ -13,6 +13,10 @@ class accesories(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering=("-date",)   
+
 
 
 class comment_box(models.Model):

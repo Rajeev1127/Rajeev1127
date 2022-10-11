@@ -17,6 +17,26 @@ def about(request):
         print("DATA FROM DATABASE")
     return render(request,"about.html",{'key1':pro})
 
+def about2(request):
+    id=request.GET['id']
+    print(id)
+    pro=accesories.objects.get(id=id)
+
+    if 'recent' in request.session:
+        if id in request.session['recent']:
+            request.session['recent'].remove(id)        
+        print(request.session['recent'])
+        recent_list=accesories.objects.filter(id__in=request.session['recent'])
+        print(recent_list)        
+        request.session['recent'].insert(0,id)
+
+        if len(request.session['recent'])>4:
+            request.session['recent'].pop()
+    else:
+         request.session['recent']=[id]
+         recent_list=accesories.objects.filter(id=id)
+    request.session.modified=True
+    return render(request,"about.html",{'key1':pro,'key2':recent_list})
 
 def comment(request):
     name=request.POST['user']
